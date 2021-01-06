@@ -35,10 +35,19 @@ const createRouter = function (collection) {
     collection.insertOne(newData)
     .then((result) => {
       res.json(result.ops[0]);
-    })
-
+    });
   });
 
+
+  //Destroy route to delete and existing entry...
+  router.delete("/:id", (req, res) => {
+    const id = req.params.id;
+    collection.deleteOne({ _id: ObjectID(id) })
+    .then((result) => {
+      res.json(result);
+    });
+  });
+  
   return router;
 };
 
